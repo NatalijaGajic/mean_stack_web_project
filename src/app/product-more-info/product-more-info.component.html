@@ -1,0 +1,63 @@
+<app-nav-bar></app-nav-bar>
+<div class="container">
+  <form [formGroup]="form">
+  <div style="padding:1  rem;" class="border">
+    <div class="d-flex justify-content-center  row" style="padding:4rem;">
+
+        <div class="col border">
+        <div class="infos">
+          <img [src]="product?.imagePath" class="card-img-top" [alt]="product?.name">
+
+        </div>
+        </div>
+        <div class="infos col border">
+          <div class="row  row-class">
+            <ul class="navbar-nav">
+              <li> <h5 class="card-title">{{product?.name}}</h5></li>
+              <li><h5 class="card-title">{{product?.price}}</h5></li>
+            </ul>
+          </div>
+          <div>
+            <p class="card-text">{{product?.about}}</p>
+          </div>
+          <div class="row row-class" >
+          <label for="sizes">Size:</label>
+          <div id="sizes">
+
+              <div class="list-group list-group-horizontal" id="list-tab" role="tablist" >
+
+                  <input class="list-group-item list-group-item-action "  data-toggle="pill" type="button" *ngFor="let size of product?.sizes" style="margin:7px;" value="{{size?.size}}" (click)="getQuantity(size.size)"/>
+                </div>
+
+
+          </div>
+          </div>
+          <div class="row  row-class border">
+          <div class="col">
+              <label  for="spinner">Kolicina: </label>
+              <input type="number" id="spinner" formControlName="quantity" value="1" min="1" max="10" step="1"/>
+          </div>
+          <div class="col d-flex justify-content-end">
+              <div class="d-flex flex-column">
+                <a *ngIf="!userIsAuthenticated" > <button style='font-size:16px; ' class="btn btn-primary" disabled="true" id="addTCUA"><i class='fas fa-shopping-cart'></i> Add to cart </button></a>
+                <label *ngIf="!userIsAuthenticated"  for="addTCUA"> <a [routerLink]="['/login']"  routerLinkActive="router-link-active">Log in to shop</a></label>
+              </div>
+             <button *ngIf="userIsAuthenticated && !adminIsLogedIn" style='font-size:16px; ' class="btn btn-primary" (click)="onAddToCart()"><i class='fas fa-shopping-cart'  ></i> Add to cart </button>
+              <a *ngIf="adminIsLogedIn" [routerLink]="['/admin', productID]" routerLinkActive="router-link-active"> <button style='font-size:16px; 'class="btn btn-primary"> Change </button></a>
+
+
+              <app-user-form></app-user-form>
+            </div>
+          </div>
+            <span *ngIf="getSizeQuantity" style="color: firebrick" > Pick size and quantity </span>
+        </div>
+        </div>
+        </div>
+        </form>
+
+      </div>
+
+      <div class="container-fluid m-0 p-0">
+          <app-footer></app-footer>
+          <app-footer-dark></app-footer-dark>
+      </div>

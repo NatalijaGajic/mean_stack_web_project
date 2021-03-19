@@ -1,0 +1,62 @@
+<app-nav-bar></app-nav-bar>
+<app-user-form></app-user-form>
+<div class="container">
+  <div class="border" style="padding:1rem;">
+  <div class="row border d-flex justify-content-center" style="margin:6rem; padding:1rem;">
+
+      <div class="col-md-4  mb-4">
+          <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-muted">Your cart</span>
+            <span class="badge badge-secondary badge-pill">{{products.length}}</span>
+          </h4>
+          <ul class="list-group mb-3">
+            <li class="list-group-item">
+                <div  class=" lis-group-item d-flex justify-content-between" *ngFor="let product of products">
+                  <ul class="navbrar-nav nav">
+                  <li>
+                        <a [routerLink]="['/more', product.id]"><h6 class=""> <span class="badge badge-secondary badge-pill">{{product.quantity}}</span>
+                    {{product.name}}</h6></a>
+                        </li>
+                    <li>
+                        <span class="text-muted">${{product.price}}</span>
+                        <span style="margin-left:10px;"class="text-muted">size:{{product.size}}</span>
+                       <button class="btn btn-light" (click)="onDelete(product?.id, product?.size)"><i class="fa fa-trash"></i></button>
+                    </li>
+
+                    </ul>
+                    </div>
+
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Total (USD)</span>
+              <strong *ngIf="products.length > 0">${{total}}</strong>
+            </li>
+          </ul>
+          <form class="card p-2">
+            <div class="d-flex justify-content-center">
+          <a [routerLink]="['/products']" routerLinkActive="router-link-active" ><button type="submit" class="btn btn-secondary ">Back to products</button></a>
+            </div>
+        </form>
+        </div>
+    <div class="col-md-8 ">
+     <app-ordering-info></app-ordering-info>
+    </div>
+  </div>
+</div>
+  <span *ngIf="orders?.length > 0"><h4 class="mb-3">Your orders:</h4></span>
+  <div>
+    <ul class="" *ngFor="let order of orders">
+      <li class="list-group-item  list-group-item-primary">
+            <ul class="list-group" *ngFor="let cartItem of order?.cart">
+              <li class="list-group-item"><a [routerLink]="['/more', cartItem?.productId]">{{cartItem?.name}}</a></li>
+              <li class="list-group-item"><small>products: {{cartItem?.quantity}}, size: {{cartItem?.size}}</small> | {{order?.address}}, {{order?.city}}, {{order?.state}}</li>
+            </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="container-fluid m-0 p-0">
+    <app-footer></app-footer>
+    <app-footer-dark></app-footer-dark>
+</div>

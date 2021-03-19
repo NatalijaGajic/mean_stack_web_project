@@ -1,0 +1,93 @@
+
+<app-nav-bar></app-nav-bar>
+
+
+
+<div class="container">
+
+    <div class="row" style="margin-top: 50px;">
+
+      <div class="col-3 side-toolbar">
+          <form [formGroup]="form">
+
+              <div>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <input type="button" class="list-group-item list-group-item-action " data-toggle="pill"  [value]="'Men'" formControlName="men" (click)="changeSelectedCathegory('Men')">
+                  <input type="button" class="list-group-item list-group-item-action"  data-toggle="list"  [value]="'Women'" formControlName="women" (click)="changeSelectedCathegory('Women')">
+                  <input type="button" class="list-group-item list-group-item-action"   data-toggle="list"  [value]="'Kids'" formControlName="kids" (click)="changeSelectedCathegory('Kids')" >
+                </div>
+              </div>
+
+              <div class="list-group-item">Brands</div>
+            <div class="container-check">
+              <div class="row form-check">
+                  <div class="custom-control custom-checkbox" style="margin-top:10px; margin-left:30px;" *ngFor="let control of BrandControlArray.controls; let i=index;">
+                    <input class="custom-control-input" type="checkbox" value="" id="check{{i}}" [formControl]="control">
+                    <label class="custom-control-label" for="check{{i}}">
+                      {{branding[i]}}
+                    </label>
+                  </div>
+              </div>
+            </div>
+            <button class="btn btn-primary " style="margin-top:20px" type="submit"  (click)="onSearch()" >Apply filters</button>
+
+        </form>
+</div>
+
+      <div class="col-9" >
+
+          <div class="d-flex justify-content-start row">
+
+          <div class="row">
+              <label class="col" style="font-size: 12px; margin-left:14px;">Items per page</label>
+                <select class="custom-select col">
+                    <option selected style="width:fit-content" >10</option>
+                    <option value="1">20</option>
+                    <option value="2">30</option>
+
+                  </select>
+                </div>
+
+            </div>
+
+        <div class="row">
+          <div class="col-3" *ngFor="let product of products | paginate: {itemsPerPage: 10, currentPage: page}">
+            <div class="card border my-2 p-2">
+              <div class="product-card">
+                <div class="row">
+                    <div class="card-body" >
+                      <img [src]="product?.imagePath" class="card-img-top" [alt]="product?.name" style="width:100%;">
+                      </div>
+                  </div>
+                  <div>
+
+                </div>
+              <div class="" style="height: 25%">
+                  <div class="list-group list-group-flush ">
+                      <a href="#" class="card-link float-right" [routerLink]="['/more', product._id]"><div class="prod-name" style="text-align: center; font-style:initial">{{product.name}}</div></a>
+                      <div class="flex-d justify-content-center" style="height: 25%; text-align: center; margin:10px;">
+                        {{product.price}}
+                      </div>
+
+                    </div>
+                </div>
+
+            </div>
+          </div>
+        </div>
+        </div>
+        <div class="border d-flex justify-content-end">
+
+              <pagination-controls (pageChange)="page = $event"></pagination-controls>
+
+        </div>
+
+      </div>
+</div>
+</div>
+
+<div class="container-fluid m-0 p-0">
+        <app-footer></app-footer>
+        <app-footer-dark></app-footer-dark>
+</div>
+

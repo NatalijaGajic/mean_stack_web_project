@@ -1,0 +1,26 @@
+<form [formGroup]="form">
+
+    <div>
+      <div class="list-group" id="list-tab" role="tablist">
+        <input type="button" class="list-group-item list-group-item-action " data-toggle="pill"  value="Men" formControlName="men" (click)="changeSelectedCathegory('Men')">
+        <input type="button" class="list-group-item list-group-item-action"  data-toggle="list"  value="Women" formControlName="women" (click)="changeSelectedCathegory('Women')">
+        <input type="button" class="list-group-item list-group-item-action"   data-toggle="list"  value="Kids" formControlName="kids" (click)="changeSelectedCathegory('Kids')" >
+      </div>
+    </div>
+
+    <div class="list-group-item">Brands</div>
+  <div class="container-check">
+    <div class="row form-check">
+        <div class="form-check check-group" style="margin-top:10px; margin-left:30px;" *ngFor="let control of BrandControlArray.controls; let i=index;">
+          <input class="form-check-input" type="checkbox" value="" id="check{{i}}" [formControl]="control" (click)="getSelectedBrands()">
+          <label class="form-check-label" for="check{{i}}">
+            {{branding[i]}}
+          </label>
+        </div>
+    </div>
+  </div>
+  <button class="btn btn-primary " style="margin-top:20px" type="submit"  (click)="onSearch()" >Apply filters</button>
+  <button class="btn btn-primary " style="margin-top:20px" type="submit"  routerLink="/products" [queryParams]="{cathegory: selectedCathegory, brand: selectedBrandsArrayValues}" >Search</button>
+
+<form>
+

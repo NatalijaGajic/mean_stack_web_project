@@ -1,0 +1,13 @@
+.limit{
+  width:20px;
+  word-wrap: break-word;
+}
+
+.image-preview {
+  height: 5rem;
+  margin: 1rem 0;
+}
+
+.image-preview  img {
+  height: 100%;
+}

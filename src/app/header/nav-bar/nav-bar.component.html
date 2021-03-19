@@ -1,0 +1,49 @@
+
+
+
+<div class="nav-div" style="margin: 0px" >
+    <nav class="navbar navbar-expand-lg  bg-light">
+        <a class="navbar-brand" href="#" [routerLink]="['']" routerLinkActive="router-link-active" >OnlineStore</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="navbar-nav mr-auto">
+
+
+          </div>
+          <form class="form-inline my-2 my-lg-0 justify-content-end">
+            <div *ngIf="adminIsLogedIn">
+                <a [routerLink]="['/admin']" routerLinkActive="router-link-active"><button class="btn-primary rounded" style='font-size:16px; margin:10px;'> Main page </button></a>
+            </div>
+            <div *ngIf="!userIsAuthenticated">
+                <div class="nav-item dropdown" *ngIf="!userIsAuthenticated">
+                    <a *ngIf="!userIsAuthentificated" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i *ngIf="!userIsAuthentificated" class='far fa-user  '></i>
+                    </a>
+                    <div *ngIf="!userIsAuthenticated" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                     <a *ngIf="!userIsAuthenticated" [routerLink]="['/signup']" routerLinkActive="router-link-active" > <button type="button" id="signUp" *ngIf="!userIsAuthenticated"
+                      class="dropdown-item btn btn-light " data-whatever="@fat" >Sign up</button></a>
+
+                      <a *ngIf="!userIsAuthenticated" [routerLink]="['/login']"  routerLinkActive="router-link-active" ><button id="logIn" type="button" class="btn btn-light dropdown-item" data-whatever="@fat">Log in</button></a>
+                      <div *ngIf="!userIsAuthenticated" class="dropdown-divider"></div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+          </form>
+          <div>
+              <a  *ngIf="userIsAuthenticated && !adminIsLogedIn" [routerLink]="['/cart']" routerLinkActive="router-link-active" ><button style='font-size:16px; ' class="btn btn-primary justify-content-end"><i class='fas fa-shopping-cart '></i> Cart </button></a>
+              <span class="float-right"></span>
+              <button class="btn-primary rounded"*ngIf="userIsAuthenticated" style='font-size:16px; margin:10px;'(click)="onLogOut()"> Log out </button>
+
+          </div>
+
+
+    </div>
+
+

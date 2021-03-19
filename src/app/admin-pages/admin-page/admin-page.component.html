@@ -1,0 +1,103 @@
+<app-nav-bar></app-nav-bar>
+<app-user-form></app-user-form>
+<div class="container">
+  <div class="row">
+      <div class="col">
+          <div class="row">
+              <nav class="navbar navbar-expand-sm navbar-light bg-light" style="margin-left:0px;">
+            <div class="col-9">
+                <div class="d-flex justify-content-center flex-column" style="margin-bottom:10px;">
+                    <div class="d-flex justify-content-around">
+                            <div class="custom-control" style="margin-right:10px;">
+                                <button class="btn btn-primary" type="submit" style="width: 150px;" (click)="onAll()">Products</button>
+                              </div>
+
+                            <div class="custom-control" style="margin-right:10px;">
+                                <button class="btn btn-primary" type="submit" (click)="onOrders()" style="width: 150px;">Orders</button>
+                              </div>
+
+                            <div class="custom-control" style="margin-right:10px;">
+                                <button class="btn btn-primary" type="submit" (click)="onUsers()" style="width: 150px;">Users</button>
+                              </div>
+                      </div>
+                  </div>
+            <form [formGroup]="form">
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarsExample03">
+                      <ul class="navbar-nav d-flex justify-content-between">
+                        <li>
+                            <div class="custom-control" style="margin-right:10px;">
+                                <button class="btn btn-primary" type="submit" (click)="onAll()">All</button>
+                              </div>
+                        </li>
+                        <li class="nav-item active">
+                            <div class="form-group" style="margin-right:10px;">
+                                <select class="custom-select mr-sm-2" formControlName="cathegory" value="Cathegory" aria-placeholder="Cathegorie">
+                                    <option value="" disabled selected hidden>Cathegory</option>
+                                    <option value="brand" *ngFor="let cat of chategories" [attr.value]="cat" [selected]="true">{{cat}}</option>
+                              </select>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="form-group" style="margin-right:10px;">
+                                <select class="custom-select mr-sm-2" formArrayName="brand" formControlName="brand" aria-placeholder="Brand">
+                                    <option value="brand" *ngFor="let brand of brands" [attr.value]="brand" [selected]="true">{{brand}}</option>
+                              </select>
+                            </div>
+                        </li>
+                        <li>
+                            <button class="btn btn-primary" style="margin-right:0px;" type="submit" (click)="onApply()">Apply</button>
+                        </li>
+                        <li>
+
+                          </li>
+                      </ul>
+                    </div>
+
+            </form>
+
+          </div>
+            </nav>
+          </div>
+          <div class="d-flex " style="margin-top:0; margin-left:0px;">
+              <input type="text" placeholder="Search" [(ngModel)]="searchText">
+          </div>
+          <table class="table table-hover border">
+
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Cathegory</th>
+                  <th scope="col">Brand</th>
+                  <th> <button class="btn btn-outline-primary" type="button" (click)="onAddClick()">Add</button></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let product of products | filter:searchText | paginate:{itemsPerPage: 5, currentPage: p}; let i=index;">
+                  <th scope="row">{{i+1}}</th>
+                  <td><a class="card-link float-right" [routerLink]="['/admin', product._id]" ><small>{{product?.name}}</small></a></td>
+                  <td>{{product?.cathegory}}</td>
+                  <td>{{product?.brand}}</td>
+                  <td><div class="input-group-append">
+                      <button class="btn btn-outline-primary" (click)="onDelete(product?._id)"><i class="fa fa-trash"></i></button>
+                    </div>
+                </td>
+                </tr>
+              </tbody>
+            </table>
+
+      </div>
+
+      <div class="col">
+        <app-create-product></app-create-product>
+       </div>
+  </div>
+  <pagination-controls (pageChange)="p=$event"></pagination-controls>
+</div>
+
+

@@ -1,0 +1,115 @@
+
+<div class="container">
+  <div style="margin:20px;">
+    <form [formGroup]="form" >
+      <div class="row">
+      <div class="col">
+      <div class="">
+      <div class="form-group">
+        <label for="product-name">Product name</label>
+        <input type="text" formControlName="name" class="form-control" id="product-name" placeholder="" name="name"  value="{{product?.name}}" >
+        <div *ngIf="form.get('name').invalid" style="color: firebrick">Name required</div>
+      </div>
+      <div class="form-group">
+        <label for="about">About</label>
+        <input type="text" formControlName="about" class="form-control" id="about" placeholder="" name="about"   value="{{product?.about}}" >
+      </div>
+    </div>
+    <div class="">
+      <div class="form-group">
+
+          <label class="mr-sm-2" for="inlineFormCustomSelect">Cathegory</label>
+          <select class="custom-select mr-sm-2" formControlName="cathegory">
+            <option value="brand" *ngFor="let cat of chategories" [attr.value]="cat" [attr.selected]="mode && cat === product?.cathegory">{{cat}}</option>
+
+        </select>
+      </div>
+      <div class="form-group">
+
+
+
+          <label for="">Brand</label>
+          <select class="custom-select mr-sm-2" formControlName="brand">
+
+                  <option value="brand" *ngFor="let brand of brands" [attr.value]="brand"  [attr.selected]="mode && brand === product?.brand" >{{brand}}</option>
+
+            </select>
+
+        </div>
+    </div>
+      <div class="">
+
+      <div class="form-group ">
+
+        <label for="price">Price</label>
+        <input type="number" class="form-control" id="price" placeholder="" name="price"  formControlName="price" value="{{product?.price}}">
+
+      </div>
+
+    </div>
+
+      </div>
+      <div class="col">
+
+          <label for="">Sizes</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="">Size and quantity:</span>
+                </div>
+                <input type="number" class="form-control" formControlName="size" placeholder="Size" name="size" >
+                <input type="number" class="form-control" formControlName="count" placeholder="Quantity" name="count" >
+                <div class="input-group-append">
+                    <button class="btn btn-outline-primary" type="button" (click)="onAddSizes()">Add</button>
+                  </div>
+              </div>
+              <div class="row">
+              <div>
+                  <div class="col-5" style="margin-top:10px;" *ngFor="let one of sizes">
+                      <div>
+                          <form (submit)="onDelete(this.deleteForm)" #deleteForm="ngForm">
+                              <div class="input-group" style="margin-left: 0px;">
+
+                                  <input type="text" class="form-control" disabled="true" value="{{one.size}}" name="sizeOfsizes">
+                                  <input type="text" class="form-control"disabled="true" value="{{one.count}}" name="countOfsizes">
+                                  <div class="input-group-append">
+                                  <button class="btn btn-outline-primary" value="{{one.size}}" (click)="onDelete(one.size)" ><i class="fa fa-trash"></i></button>
+
+                                </div>
+                             </div>
+                          </form>
+
+
+                      </div>
+                    </div>
+              </div>
+
+               </div>
+
+
+        </div>
+        <div>
+          <button type="button" class="btn btn-primary"(click)="filePicker.click()">Choose picture</button>
+          <input type="file" #filePicker style="visibility:hidden;" (change)="onImagePicked($event)">
+        </div>
+        <div class="image-preview" *ngIf="(imagePreview !== '' && imagePreview && form.get('image').valid)">
+          <img [src]="imagePreview" [alt]="form.value.name">
+      </div>
+      <div *ngIf="mode">
+        <div calss="image-preview" *ngIf="(imagePreview === '' || !imagePreview) || !mode">
+          <img [src]="imagePath" [alt]="product?.name">
+        </div>
+      </div>
+        <div class="container-fluid m-0 p-0">
+          <button  *ngIf="!mode" type="submit" class="btn btn-primary align-self-center ml-2" (click)="onAddProduct()">Submit</button>
+          <button *ngIf="mode"  type="submit" class="btn btn-primary"(click)="editProduct()">Save changes</button>
+          <button *ngIf="mode"  type="submit" class="btn btn-primary"(click)="editProduct()">Delete</button>
+        </div>
+
+      </div>
+    </form>
+    <span *ngIf="getForm.invalid || sizes.length == 0 || getPrice.value < 0" style="color: firebrick"> Enter valid input. </span>
+  </div>
+</div>
+
+<script>
+</script>
